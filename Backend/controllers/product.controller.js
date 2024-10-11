@@ -13,7 +13,7 @@ export const getAllProducts = async (req, res) => {
 
 export const getFeaturedProducts = async (req, res) => {
   try {
-    let featuredProducts = await redis.get("featured_products");
+    let featuredProducts = await redis.get("featured_products"); // get from redis
     if (featuredProducts) {
       return res.json(JSON.parse(featuredProducts));
     }
@@ -31,7 +31,7 @@ export const getFeaturedProducts = async (req, res) => {
 
     await redis.set("featured_products", JSON.stringify(featuredProducts));
 
-    res.json(featuredProducts);
+    res.json(featuredProducts); // send to frontend
   } catch (error) {
     console.log("Error in getFeaturedProducts controller", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
